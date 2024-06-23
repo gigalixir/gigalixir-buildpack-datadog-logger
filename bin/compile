@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+build_pack_dir=$(cd $(dirname $(dirname $0)); pwd)
+
+### Configure environment
+
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
+
+
+### Configure directories
+
+mkdir -p $1 $2 $3 # Ensure dirs are present
+
+build_dir=$(cd $1 && pwd)
+cache_dir=$(cd $2 && pwd)
+env_dir=$(cd $3 && pwd)
+
+log_shuttle_dir=${build_dir}/.profile.d/gigalixir_datadog_logger
+log_shuttle_path=${log_shuttle_dir}/log_shuttle
+
+mkdir -p ${log_shuttle_dir}
+cp ${build_pack_dir}/extra/log_shuttle.sh ${log_shuttle_path}
+cp ${build_pack_dir}/extra/profile.sh ${build_dir}/.profile.d/999_gigalixir_datadog_logger.sh
