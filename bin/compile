@@ -22,5 +22,5 @@ log_shuttle_dir=${build_dir}/.profile.d/gigalixir_datadog_logger
 log_shuttle_path=${log_shuttle_dir}/log_shuttle
 
 mkdir -p ${log_shuttle_dir}
-cp ${build_pack_dir}/extra/log_shuttle.sh ${log_shuttle_path}
+cp ${build_pack_dir}/extra/log_shuttle ${log_shuttle_path}
 cp ${build_pack_dir}/extra/profile.sh ${build_dir}/.profile.d/999_gigalixir_datadog_logger.sh
