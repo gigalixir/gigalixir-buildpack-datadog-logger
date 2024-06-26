@@ -5,6 +5,12 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/.test_support.sh
 
+touch ${cache_dir}/gig-dd-logger-v1.0.0-rc.1
+
+echo() {
+  /bin/true
+}
+
 
 # TESTS
 ######################

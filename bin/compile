@@ -18,9 +18,7 @@ build_dir=$(cd $1 && pwd)
 cache_dir=$(cd $2 && pwd)
 env_dir=$(cd $3 && pwd)
 
-log_shuttle_dir=${build_dir}/.profile.d/gigalixir_datadog_logger
-log_shuttle_path=${log_shuttle_dir}/log_shuttle
+source $build_pack_dir/lib/utils
 
-mkdir -p ${log_shuttle_dir}
-cp ${build_pack_dir}/extra/log_shuttle ${log_shuttle_path}
-cp ${build_pack_dir}/extra/profile.sh ${build_dir}/.profile.d/999_gigalixir_datadog_logger.sh
+install_log_shuttle_binary
+install_profile_script

@@ -1,0 +1,40 @@
+install_log_shuttle_binary() {
+  local latest_release="v1.0.0-rc.1"
+
+  local cache_bin_path="${cache_dir}/gig-dd-logger-${latest_release}"
+  local tmp_bin_path="/tmp/gig-dd-logger-${latest_release}"
+  local tmp_sha_path="/tmp/gig-dd-logger-${latest_release}.SHA256"
+
+  # if the binary is already cached, use it, otherwise download it
+  if [ -e "${cache_bin_path}" ]; then
+    echo "Using cached Gigalixir Datadog Logger binary ${latest_release}"
+  else
+    echo "Downloading Gigalixir Datadog Logger binary ${latest_release}"
+
+    local github_base_url="https://github.com/gigalixir/gigalixir-buildpack-datadog-logger/releases/download"
+    local github_bin_url="${github_base_url}/${latest_release}/log_shuttle"
+    local github_sha_url="${github_base_url}/${latest_release}/log_shuttle.SHA256"
+
+    curl -L -s -o ${tmp_bin_path} ${github_bin_url}
+    curl -L -s -o ${tmp_sha_path} ${github_sha_url}
+    
+    # check the sha256sum of the binary
+    if ! sha256sum -c ${tmp_sha_path} > /dev/null 2> /dev/null; then
+      echo "Download failed: SHA256 mismatch"
+      exit 1
+    fi
+
+    chmod +x ${tmp_bin_path}
+    mv ${tmp_bin_path} ${cache_bin_path}
+  fi
+
+  local build_bin_dir="${build_dir}/.profile.d/gigalixir_datadog_logger"
+  local build_bin_path="${build_bin_dir}/log_shuttle"
+
+  mkdir -p ${build_bin_dir}
+  cp ${cache_bin_path} ${build_bin_path}
+}
+
+install_profile_script() {
+  cp ${build_pack_dir}/extra/profile.sh ${build_dir}/.profile.d/999_gigalixir_datadog_logger.sh
+}

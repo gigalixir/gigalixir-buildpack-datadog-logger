@@ -10,6 +10,9 @@ mkdir -p ${gigalixir_bin_path}
 echo "echo 'this is the stand-in for the real log shuttle'" > ${gigalixir_bin_path}/log_shuttle
 chmod +x ${gigalixir_bin_path}/log_shuttle
 
+log_shuttle_path="${cache_dir}/log_shuttle"
+touch ${log_shuttle_path}
+chmod +x ${log_shuttle_path}
 
 # TESTS
 ######################
@@ -18,7 +21,6 @@ suite "profile script"
 
   test "happy path"
 
-    log_shuttle_path=$SCRIPT_DIR/../extra/log_shuttle
     output=$(log_shuttle_path=${log_shuttle_path} gigalixir_bin_path=$gigalixir_bin_path $SCRIPT_DIR/../extra/profile.sh)
 
     [ "$?" -eq "0" ]
