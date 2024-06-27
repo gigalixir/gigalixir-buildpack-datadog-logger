@@ -1,9 +1,9 @@
 install_log_shuttle_binary() {
-  local latest_release="v1.0.0-rc.1"
+  local latest_release="v1.0.0-rc.2"
 
   local cache_bin_path="${cache_dir}/gig-dd-logger-${latest_release}"
-  local tmp_bin_path="/tmp/gig-dd-logger-${latest_release}"
-  local tmp_sha_path="/tmp/gig-dd-logger-${latest_release}.SHA256"
+  local tmp_bin_path="/tmp/gig-dd-logger"
+  local tmp_sha_path="/tmp/gig-dd-logger.SHA256"
 
   # if the binary is already cached, use it, otherwise download it
   if [ -e "${cache_bin_path}" ]; then
