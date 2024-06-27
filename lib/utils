@@ -1,5 +1,5 @@
 install_log_shuttle_binary() {
-  local latest_release="v1.0.0-rc.2"
+  local latest_release="v1.0.0"
 
   local cache_bin_path="${cache_dir}/gig-dd-logger-${latest_release}"
   local tmp_bin_path="/tmp/gig-dd-logger"
