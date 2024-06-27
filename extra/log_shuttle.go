@@ -10,13 +10,30 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 )
+
+func cleanForemanLine(line string) (string, string) {
+	re := regexp.MustCompile(`\[\d+m([a-zA-Z0-9.]+)\s+\|\s+\[\d+m(.*)`)
+	matches := re.FindStringSubmatch(line)
+
+	if len(matches) == 3 {
+		processName := matches[1]
+		message := matches[2]
+
+		return processName, message
+	} else {
+		return "", line
+	}
+}
 
 // sendLog sends a single log entry to Datadog
 func sendLog(client *http.Client, ddUrl, apiKey, logEntry string) error {
+	processName, message := cleanForemanLine(logEntry)
+
 	var buf bytes.Buffer
 	gw := gzip.NewWriter(&buf)
-	if _, err := gw.Write([]byte(logEntry)); err != nil {
+	if _, err := gw.Write([]byte(message)); err != nil {
 		return err
 	}
 	if err := gw.Close(); err != nil {
@@ -39,6 +56,13 @@ func sendLog(client *http.Client, ddUrl, apiKey, logEntry string) error {
 	if q.Get("host") == "" {
 		if os.Getenv("HOSTNAME") != "" {
 			q.Set("host", os.Getenv("HOSTNAME"))
+		}
+	}
+
+	// add 'service=processName' if missing
+	if q.Get("service") == "" {
+		if processName != "" {
+			q.Set("service", processName)
 		}
 	}
 
