@@ -7,8 +7,8 @@ source $SCRIPT_DIR/.test_support.sh
 
 gigalixir_bin_path=${TEST_DIR}/gigalixir/bin
 mkdir -p ${gigalixir_bin_path}
-echo "echo 'this is the stand-in for the real log shuttle'" > ${gigalixir_bin_path}/log_shuttle
-chmod +x ${gigalixir_bin_path}/log_shuttle
+echo "echo 'this is the stand-in for the real log shuttle'" > ${gigalixir_bin_path}/log-shuttle
+chmod +x ${gigalixir_bin_path}/log-shuttle
 
 
 # TESTS
@@ -23,10 +23,10 @@ suite "profile script"
 
     [ "$?" -eq "0" ]
     [ -z "$output" ]
-    [ -x "${gigalixir_bin_path}/log_shuttle.real" ]
-    grep -q "this is the stand-in for the real log shuttle" ${gigalixir_bin_path}/log_shuttle.real
-    [ -x "${gigalixir_bin_path}/log_shuttle" ]
-    diff ${gigalixir_bin_path}/log_shuttle ${log_shuttle_path} > /dev/null
+    [ -x "${gigalixir_bin_path}/log-shuttle.real" ]
+    grep -q "this is the stand-in for the real log shuttle" ${gigalixir_bin_path}/log-shuttle.real
+    [ -x "${gigalixir_bin_path}/log-shuttle" ]
+    diff ${gigalixir_bin_path}/log-shuttle ${log_shuttle_path} > /dev/null
 
 
 
