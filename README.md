@@ -37,7 +37,7 @@ Here is a JSON example (unfurled to multiple lines for clairity):
 
 ## Configuration
 
-Required settings:
+### Required settings
 
 | Setting                  | Description |
 |--------------------------|-------------|
@@ -58,6 +58,14 @@ To determine your `GIG_DD_LOGGER__URL`, first determine your DataDog Site, then 
 
 
 You can append a DataDog service name to the URL if you like: `https://http-intake.logs.datadoghq.com/api/v2/logs/?service=my-application`
+
+
+### Optional settings
+
+| Setting                    | Description |
+|----------------------------|-------------|
+| `GIG_DD_LOGGER__ONLY_JSON` | If set to `true`, only JSON logs will be sent to datadog. |
+
 
 
 ## Tests
