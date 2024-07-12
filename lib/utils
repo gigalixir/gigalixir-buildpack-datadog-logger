@@ -33,7 +33,7 @@ install_log_shuttle_binary() {
 
   mkdir -p ${build_bin_dir}
   cp ${cache_bin_path} ${build_bin_path}
-  cp ${build_pack_dir}/extra/log_shuttle.sh ${build_bin_path}
+  cp ${build_pack_dir}/extra/log_shuttle.sh ${build_bin_dir}/log_shuttle.sh
 }
 
 install_profile_script() {
